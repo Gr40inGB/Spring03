@@ -31,7 +31,14 @@ public class BookService {
         return repository.save(mapper.toEntity(book));
     }
 
+    public void deleteById(long id) {
+        if (bookExist(id)) repository.deleteById(id);
+        else throw new ResponseStatusException(HttpStatus.NOT_FOUND, "id " + id + " not found");
+    }
 
+    public boolean bookExist(long id) {
+        return repository.existsById(id);
+    }
 
 
 }
