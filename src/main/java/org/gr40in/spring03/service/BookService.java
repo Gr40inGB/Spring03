@@ -3,6 +3,7 @@ package org.gr40in.spring03.service;
 import lombok.RequiredArgsConstructor;
 import org.gr40in.spring03.dto.BookDto;
 import org.gr40in.spring03.entity.Book;
+import org.gr40in.spring03.mapper.BookMapper;
 import org.gr40in.spring03.repository.BookRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BookService {
     private final BookRepository repository;
+    private final BookMapper mapper;
 
     public List<Book> getAllBooks() {
         return repository.findAll();
@@ -25,9 +27,8 @@ public class BookService {
         return book.get();
     }
 
-    public void createBook(BookDto book) {
-
-        repository.save(book);
+    public Book createBook(BookDto book) {
+        return repository.save(mapper.toEntity(book));
     }
 
 
