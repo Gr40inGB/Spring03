@@ -8,5 +8,5 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @NoArgsConstructor
 @ConfigurationProperties(prefix = "library")
 public class LibraryProperties {
-    private Integer allowed;
+    private Integer allowed = 1;
 }

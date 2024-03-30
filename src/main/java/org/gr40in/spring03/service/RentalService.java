@@ -1,5 +1,6 @@
 package org.gr40in.spring03.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.gr40in.spring03.config.LibraryProperties;
 import org.gr40in.spring03.entity.Book;
@@ -44,6 +45,7 @@ public class RentalService {
         return Rental.get();
     }
 
+    @Transactional
     public Rental createRental(Rental rental) {
 
         System.out.println("aim here" + properties.getAllowed());
@@ -71,11 +73,11 @@ public class RentalService {
         rental.setClient(clientRepository.findById(rental.getClient().getId()).get());
         return rental;
     }
-
+@Transactional
     public Rental returnBook(long id) {
         var persistRental = rentalRepository.findById(id);
         if (persistRental.isEmpty()) {
-             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "not found rental " + id);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "not found rental " + id);
         } else persistRental.get().setReturnTime(LocalDateTime.now());
         return persistRental.get();
     }
