@@ -7,6 +7,7 @@ import org.gr40in.spring03.mapper.ClientMapper;
 import org.gr40in.spring03.repository.BookRepository;
 import org.gr40in.spring03.repository.ClientRepository;
 import org.gr40in.spring03.repository.RentalRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -24,12 +25,16 @@ public class RentalService {
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
 
+//    @Value("${application.allowed}")
+//    int max;
+
     public List<Rental> getAllRentals() {
         return rentalRepository.findAll();
     }
 
     public Rental getRentalById(long id) {
         var Rental = rentalRepository.findById(id);
+//        System.out.println(max);
         if (Rental.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "id " + id + " not found");
         return Rental.get();
     }
