@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -36,8 +37,13 @@ public class RentalService {
     public Rental createRental(Rental rental) {
 
         if (bookRepository.existsById(rental.getBook().getId())
-                && clientRepository.existsById(rental.getClient().getId()))
-            return rentalRepository.save(rental);
+                && clientRepository.existsById(rental.getClient().getId())) {
+            rentalRepository.save(rental);
+            rental.setStartTime(LocalDateTime.now());
+            rental.setBook(bookRepository.findById(rental.getId()).get());
+            rental.setClient(clientRepository.findById(rental.getId()).get());
+            return rental;
+        }
         else throw new ResponseStatusException(HttpStatus.NOT_FOUND, "something wrong");
 
     }

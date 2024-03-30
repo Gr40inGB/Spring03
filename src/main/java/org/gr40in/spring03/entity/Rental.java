@@ -17,9 +17,9 @@ public class Rental {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
-    @OneToOne
+    @ManyToOne
     private Client client;
-    @OneToOne
+    @ManyToOne
     private Book book;
     LocalDateTime startTime;
     LocalDateTime returnTime;

@@ -19,17 +19,17 @@ public class RentalController {
 
 
     @GetMapping()
-    public ResponseEntity<List<Rental>> getClients(Model model) {
+    public ResponseEntity<List<Rental>> getRentals(Model model) {
         return ResponseEntity.status(HttpStatus.OK).body(service.getAllRentals());
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Rental> getClientById(@PathVariable long id) {
+    public ResponseEntity<Rental> getRentalById(@PathVariable long id) {
         return ResponseEntity.status(HttpStatus.OK).body(service.getRentalById(id));
     }
 
     @PostMapping()
-    public ResponseEntity<Rental> createClient(@RequestBody Rental rental) {
+    public ResponseEntity<Rental> createRental(@RequestBody Rental rental) {
         return ResponseEntity.status(HttpStatus.OK).body(service.createRental(rental));
     }
 
