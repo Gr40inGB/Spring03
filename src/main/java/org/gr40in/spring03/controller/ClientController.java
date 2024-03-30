@@ -2,6 +2,7 @@ package org.gr40in.spring03.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.gr40in.spring03.entity.Client;
+import org.gr40in.spring03.entity.Rental;
 import org.gr40in.spring03.mapper.ClientMapper;
 import org.gr40in.spring03.service.ClientService;
 import org.springframework.http.HttpStatus;
@@ -29,7 +30,13 @@ public class ClientController {
         return ResponseEntity.status(HttpStatus.OK).body(service.getClientById(id));
     }
 
+    @GetMapping("{id}/rental")
+    public ResponseEntity<List<Rental>> getClientsRentals(@PathVariable long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(service.findAllRentalByClientId(id));
+    }
+
     @PostMapping()
+
     public ResponseEntity<Client> createClient(@RequestBody Client Client) {
         return ResponseEntity.status(HttpStatus.OK).body(service.createClient(mapper.toDto(Client)));
     }
