@@ -1,6 +1,9 @@
 package org.gr40in.spring03.service;
 
 import lombok.RequiredArgsConstructor;
+import org.gr40in.spring03.config.LibraryProperties;
+import org.gr40in.spring03.entity.Book;
+import org.gr40in.spring03.entity.Client;
 import org.gr40in.spring03.entity.Rental;
 import org.gr40in.spring03.mapper.BookMapper;
 import org.gr40in.spring03.mapper.ClientMapper;
@@ -18,6 +21,8 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class RentalService {
+
+    private final LibraryProperties properties;
 
     private final RentalRepository rentalRepository;
     private final ClientRepository clientRepository;
@@ -41,17 +46,40 @@ public class RentalService {
 
     public Rental createRental(Rental rental) {
 
-        if (bookRepository.existsById(rental.getBook().getId())
-                && clientRepository.existsById(rental.getClient().getId())) {
-            rentalRepository.save(rental);
-            rental.setStartTime(LocalDateTime.now());
-            rental.setBook(bookRepository.findById(rental.getId()).get());
-            rental.setClient(clientRepository.findById(rental.getId()).get());
-            return rental;
-        }
-        else throw new ResponseStatusException(HttpStatus.NOT_FOUND, "something wrong");
+        System.out.println("aim here" + properties.getAllowed());
+        long bookId = rental.getBook().getId();
+        long clientId = rental.getClient().getId();
 
+
+        if (!bookRepository.existsById(bookId))
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "not found book " + bookId);
+        if (!clientRepository.existsById(clientId))
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "not found client " + clientId);
+
+        Client client = clientRepository.findById(clientId).get();
+        Book book = bookRepository.findById(bookId).get();
+
+        var countOfBooks = rentalRepository.countAllByClientAndReturnTimeIsNull(client);
+
+        if (countOfBooks >= properties.getAllowed())
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Client have books more than "
+                    + properties.getAllowed() + ". No more rental allowed");
+
+        rentalRepository.save(rental);
+        rental.setStartTime(LocalDateTime.now());
+        rental.setBook(bookRepository.findById(rental.getBook().getId()).get());
+        rental.setClient(clientRepository.findById(rental.getClient().getId()).get());
+        return rental;
     }
+
+    public Rental returnBook(long id) {
+        var persistRental = rentalRepository.findById(id);
+        if (persistRental.isEmpty()) {
+             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "not found rental " + id);
+        } else persistRental.get().setReturnTime(LocalDateTime.now());
+        return persistRental.get();
+    }
+
 
     public void deleteById(long id) {
         if (rentalExist(id)) rentalRepository.deleteById(id);

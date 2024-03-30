@@ -3,8 +3,6 @@
 spring:
   application:
     name: Spring03
-    allowed: 3
-
 
   datasource:
     url: jdbc:postgresql://localhost:5432/library
@@ -20,5 +18,8 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 server:
   port: 8888
+
+library:
+  allowed: 3
 
 

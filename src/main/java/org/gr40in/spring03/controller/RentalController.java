@@ -33,6 +33,11 @@ public class RentalController {
         return ResponseEntity.status(HttpStatus.OK).body(service.createRental(rental));
     }
 
+    @PutMapping("{id}")
+    public ResponseEntity<Rental> returnRentalById(@PathVariable long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(service.returnBook(id));
+    }
+
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteById(@PathVariable long id) {
         service.deleteById(id);

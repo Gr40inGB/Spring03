@@ -6,4 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RentalRepository extends JpaRepository<Rental, Long> {
 
+//    public int findAllByClientAndAndReturnTimeIsNull();
+
+    public int countAllByClientAndReturnTimeIsNull(Client client);
+
 }
