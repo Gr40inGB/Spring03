@@ -1,4 +1,12 @@
 Так и не понял точно как использовать DTO объекты . Они не участвуют 
+
+Thymeleaf 
+[clientsRental.html](src%2Fmain%2Fresources%2Ftemplates%2FclientsRental.html)
+[rentals.html](src%2Fmain%2Fresources%2Ftemplates%2Frentals.html)
+[clients.html](src%2Fmain%2Fresources%2Ftemplates%2Fclients.html)
+[books.html](src%2Fmain%2Fresources%2Ftemplates%2Fbooks.html)
+
+
 База данных запускается с [compose.yaml](compose.yaml). 
 В [application.yml](src%2Fmain%2Fresources%2Fapplication.yml) настроено подключение
 
