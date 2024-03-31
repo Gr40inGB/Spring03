@@ -27,8 +27,8 @@
         <td th:text="${rental.id}"></td>
         <td th:text="${rental.client}"></td>
         <td th:text="${rental.book}"></td>
-        <td th:text="${rental.startTime}"></td>
-        <td th:text="${rental.returnTime}"></td>
+        <td th:text="${#temporals.format(rental.startTime,'yyyy-MM-dd')}"></td>
+        <td th:text="${#temporals.format(rental.returnTime,'yyyy-MM-dd')}"></td>
     </tr>
 </table>
 
