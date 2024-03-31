@@ -22,4 +22,9 @@ public class Book {
     long id;
     String name;
     String author;
+
+    @Override
+    public String toString() {
+        return id + " " + name + " (" + author + ")";
+    }
 }

@@ -18,4 +18,9 @@ public class Client {
     long id;
     String name;
     String contact;
+
+    @Override
+    public String toString() {
+        return id + " " + name + " (" + contact + ")";
+    }
 }

@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
@@ -21,6 +22,8 @@ public class Rental {
     private Client client;
     @ManyToOne
     private Book book;
+
+    @DateTimeFormat(pattern = "YYYY-MM-dd")
     LocalDateTime startTime;
     LocalDateTime returnTime;
 }
