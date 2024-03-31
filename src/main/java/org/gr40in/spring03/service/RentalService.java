@@ -73,7 +73,8 @@ public class RentalService {
         rental.setClient(clientRepository.findById(rental.getClient().getId()).get());
         return rental;
     }
-@Transactional
+
+    @Transactional
     public Rental returnBook(long id) {
         var persistRental = rentalRepository.findById(id);
         if (persistRental.isEmpty()) {

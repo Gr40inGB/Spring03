@@ -5,6 +5,7 @@ import org.gr40in.spring03.entity.Book;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+
 @Component
 public class BookMapper {
     public BookDto toDto(Book book) {

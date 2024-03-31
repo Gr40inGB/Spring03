@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Clients</title>
+</head>
+<body>
+
+<h2>Clients:</h2>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Author</th>
+    </tr>
+    <tr th:if="${clients.empty}">
+        <td colspan="2"> No any clients here </td>
+    </tr>
+    <tr th:each="client:${clients}">
+        <td th:text="${client.id}"></td>
+        <td th:text="${client.name}"></td>
+        <td th:text="${client.contact}"></td>
+    </tr>
+</table>
+
+</body>
+</html>

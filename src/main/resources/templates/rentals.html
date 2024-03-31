@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Rentals</title>
+</head>
+<body>
+
+<h2>Rentals:</h2>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Client</th>
+        <th>Book</th>
+        <th>Start time</th>
+        <th>Return time</th>
+    </tr>
+    <tr th:if="${rentals.empty}">
+        <td colspan="2"> No any rentals here </td>
+    </tr>
+    <tr th:each="rental:${rentals}">
+        <td th:text="${rental.id}"></td>
+        <td th:text="${rental.client}"></td>
+        <td th:text="${rental.book}"></td>
+        <td th:text="${rental.startTime}"></td>
+        <td th:text="${rental.returnTime}"></td>
+    </tr>
+</table>
+
+</body>
+</html>
